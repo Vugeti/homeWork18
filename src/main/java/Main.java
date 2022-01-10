@@ -1,11 +1,17 @@
 import streamapi.StreamApi;
 
 import java.io.*;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileAttribute;
 
 public class Main {
 
     public static void main(String[] args) {
 
+        FileUtils.saveURL("https://resheto.net/images/mater/pozitivnye_kartinki_2.jpg","C://Users/Vugeti/IdeaProjects/homeWork18/newDirectory/positive.jpg");
         //С помощью кода создать директорию output
         try {
             String name = "output";
@@ -13,6 +19,7 @@ public class Main {
 
             //В ней создать файл result.csv
             FileUtils.createFileInDir("result.csv", name);
+
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Exception message " + e.getMessage());
@@ -40,5 +47,7 @@ public class Main {
         }
     }
 }
+
+
 
 

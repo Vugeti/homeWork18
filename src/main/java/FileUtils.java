@@ -1,4 +1,10 @@
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,9 +81,49 @@ public class FileUtils {
 
     //Дописать строку в файл. (Добавить новую строку если файл не пустой)
     public static void addLine(String text, File file) throws IOException {
-        FileWriter fileWriter = new FileWriter(file,true);
-                fileWriter.write(text);
-                fileWriter.flush();
-            fileWriter.close();
+        FileWriter fileWriter = new FileWriter(file, true);
+        fileWriter.write(text);
+        fileWriter.flush();
+        fileWriter.close();
+    }
+    //Написать функцию которая по URL скачивает картинку из интернета и сохранят ее в корне проекта.
+    public static boolean saveURL(String url,String fileName){
+        try (InputStream in = URI.create(url).toURL().openStream()) {
+            Files.copy(in, Paths.get(fileName));
+            return true;
+        }catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
     }
+    //Написать функцию которая по URL скачивает картинку из интернета и сохранят ее в корне проекта. побайтовое
+    public static void downloadURL(String url,String fileName) {
+        FileOutputStream fout = null;
+        BufferedInputStream in = null;
+        try {
+            in = new BufferedInputStream(new URL(url).openStream());
+            fout = new FileOutputStream(fileName);
+            byte data[] = new byte[1024];
+            int count;
+            while ((count = in.read(data, 0, 1024)) != 1) {
+                fout.write(data, 0, count);
+                fout.flush();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    fout.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}
+
