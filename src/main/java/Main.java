@@ -1,11 +1,5 @@
 import streamapi.StreamApi;
-
 import java.io.*;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.nio.file.attribute.FileAttribute;
 
 public class Main {
 
